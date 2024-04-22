@@ -22,7 +22,8 @@ projectsList = [
 def projects(request):
     page = 'projects'
     number = 11
-    context = {'page':page, 'number':number, 'projects':projectsList}
+    message = 'projects'
+    context = {'page':page, 'number':number, 'projects':projectsList, 'message':message}
     return render(request, 'projects.html', context)
 
 def project(request, pk):

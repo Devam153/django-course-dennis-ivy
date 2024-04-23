@@ -3,31 +3,26 @@
 
 {% block content %}
 
-<p>hello,u are on the {{ message }} page</p>
-<p>number = {{ number }}</p>
-
-{% if number > 10 %}
-<P>NUMBER IS GREATER THAN 10</P>
-
-{% elif number == 10 %}
-<P>NUMBER IS equal to 10</P>
-
-{% else %}
-<P>NUMBER IS less THAN 10</P>
-
-{% endif %}
-
-<hr>
-
 <h1>projects</h1>
 
-<ul>
-    {% for project in projects %}
-    <li>
-        Title: <a href="{% url 'project' project.id %}">{{project.title}}</a> --- {{project.description}}
-    </li>
-
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Project</th>
+        <th>Positive Votes</th>
+        <th>Votes</th>
+        <th></th>
+        {% for project in projects %}
+    <tr>
+        <td>{{project.id}}</td>
+        <td>{{project.title}}</td>
+        <td>{{project.vote_ratio}}%</td>
+        <td>{{project.vote_total}}</td>
+        <td>{{project.created}}</td>
+        <td><a href="{% url 'project' project.id %}">View</a></td>
+    </tr>
     {% endfor %}
-</ul>
+    </tr>
+</table>
 
 {% endblock %}

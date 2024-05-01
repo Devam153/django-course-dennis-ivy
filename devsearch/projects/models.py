@@ -8,7 +8,7 @@ class Project(models.Model):
     description = models.TextField(null=True, blank=True)
     # allowed to create null values for a row
     # whenever we're submitting some kind of form or making a post request, we cannot submit this with this, thus we are allowed to subkit this form with this field being empty
-    demo_Link = models.CharField(max_length=2000, null=True, blank=True)
+    demo_link = models.CharField(max_length=2000, null=True, blank=True)
     source_link = models.CharField(max_length=2000, null=True, blank=True)
 
     tags = models.ManyToManyField('Tag', blank = True)

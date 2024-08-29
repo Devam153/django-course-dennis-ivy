@@ -4,10 +4,11 @@ from .models import Profile
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from .forms import CustomUserCreationForm
 # Create your views here.
 
 def loginUser(request):
-
+    page = 'login'
     if request.user.is_authenticated:
         return redirect('profiles')
     if request.method == 'POST':
@@ -33,7 +34,26 @@ def logoutUser(request):
     messages.success(request, 'You have been logged out successfully.')
     return redirect('login')
 
+def registerUser(request):
+    page = 'register'
+    form = CustomUserCreationForm()
 
+    if request.method == 'POST':
+        form = CustomUserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.username = user.username.lower() # get rid of case senstivity
+            user.save()
+
+            messages.success(request, 'User account was created.')
+
+            login(request,user)
+            return redirect('profiles')
+        else:
+            messages.success(request, 'An error has occurred during registeration')
+ 
+    context = {'page':page, 'form':form}
+    return render(request, 'users/login_register.html', context)
 
 
 def profiles(request):

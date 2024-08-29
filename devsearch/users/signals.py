@@ -4,6 +4,7 @@ from django.dispatch import receiver
 from django.contrib.auth.models import User
 from .models import Profile
 
+# ANY TIME A USER MODEL IS CREATED WE CREATE A PROFILE IMMEDIATELY
 
 # @receiver(post_save, sender=Profile) 
 def createProfile(sender, instance, created, **kwargs):
@@ -22,6 +23,4 @@ def deleteUser(sender,instance,**kwargs):
     user.delete() 
 
 post_save.connect(createProfile, sender=User)
-
-
 post_delete.connect(deleteUser, sender=Profile)
